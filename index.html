@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pauta de Evaluación – Role Playing | Apprecio</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Montserrat', sans-serif; background-color: #f9f9f9; color: #333; line-height: 1.6; padding: 20px; }
+.container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }
+.header { background: linear-gradient(135deg, #fa345e 0%, #ff5a7a 100%); color: white; padding: 40px 30px; text-align: center; }
+.header img { max-width: 200px; margin-bottom: 20px; filter: brightness(0) invert(1); }
+.header h1 { font-size: 32px; font-weight: 700; margin-bottom: 10px; }
+.header p { font-size: 15px; opacity: 0.9; font-weight: 400; }
+.intro-text { background: #fff8f9; border-left: 4px solid #fa345e; padding: 25px; margin: 30px; border-radius: 8px; font-size: 15px; line-height: 1.8; }
+.form-content { padding: 30px; }
+.section { margin-bottom: 40px; padding-bottom: 30px; border-bottom: 2px solid #f0f0f0; }
+.section:last-child { border-bottom: none; }
+.section-title { color: #fa345e; font-size: 24px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; }
+.section-number { background: #fa345e; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+.question { margin-bottom: 25px; }
+.question-label { font-weight: 600; color: #333; margin-bottom: 12px; display: block; font-size: 16px; }
+.question-sublabel { font-size: 13px; color: #666; font-weight: 400; margin-top: 5px; font-style: italic; display: block; }
+.required { color: #fa345e; margin-left: 3px; }
+input[type="text"], input[type="date"], select, textarea {
+  width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 8px;
+  font-family: 'Montserrat', sans-serif; font-size: 14px; transition: all 0.3s ease; background: white; color: #333;
+}
+input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+  outline: none; border-color: #fa345e; box-shadow: 0 0 0 3px rgba(250,52,94,0.1);
+}
+textarea { min-height: 80px; resize: vertical; }
+.radio-group { display: flex; flex-direction: column; gap: 10px; }
+.radio-item { display: flex; align-items: center; padding: 10px; border-radius: 8px; transition: background 0.2s ease; cursor: pointer; }
+.radio-item:hover { background: #f9f9f9; }
+input[type="radio"] { width: 20px; height: 20px; margin-right: 10px; cursor: pointer; accent-color: #fa345e; flex-shrink: 0; }
+
+/* Escala de puntaje */
+.scale-legend { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.scale-pill { display: flex; align-items: center; gap: 6px; background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 20px; padding: 5px 12px; font-size: 12px; }
+.scale-pill .num { font-weight: 700; color: #fa345e; }
+
+/* Tabla de criterios */
+.criteria-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.criteria-table thead tr { background: #fff0f3; }
+.criteria-table th { font-size: 12px; font-weight: 600; color: #fa345e; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; border-bottom: 2px solid #ffd6df; }
+.criteria-table th.score-col { text-align: center; width: 160px; }
+.criteria-table td { padding: 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; font-size: 14px; }
+.criteria-table tr:last-child td { border-bottom: none; }
+.score-selector { display: flex; gap: 6px; justify-content: center; }
+.score-btn { width: 30px; height: 30px; border: 2px solid #e0e0e0; border-radius: 6px; background: #f9f9f9; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; color: #999; font-family: 'Montserrat', sans-serif; }
+.score-btn:hover { border-color: #fa345e; color: #fa345e; background: #fff0f3; }
+.score-btn.active { background: #fa345e; border-color: #fa345e; color: white; }
+.module-instruction { font-size: 13px; color: #555; background: #fff8f9; border-left: 3px solid #ff5a7a; padding: 10px 14px; border-radius: 0 6px 6px 0; margin-bottom: 14px; font-style: italic; }
+.subtotal-row { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #f0f0f0; }
+.subtotal-label { font-size: 13px; color: #666; font-weight: 600; }
+.subtotal-val { font-size: 20px; font-weight: 800; color: #fa345e; min-width: 44px; text-align: right; }
+.comment-box { margin-top: 12px; }
+.comment-box textarea { min-height: 60px; font-size: 13px; }
+
+/* Resultado final */
+.results-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
+.result-tile { background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; text-align: center; }
+.result-tile .t-mod { font-size: 11px; font-weight: 700; color: #fa345e; text-transform: uppercase; }
+.result-tile .t-weight { font-size: 10px; color: #999; margin-bottom: 4px; }
+.result-tile .t-score { font-size: 22px; font-weight: 800; color: #333; }
+.result-tile .t-denom { font-size: 11px; color: #999; }
+.final-bar-row { display: flex; align-items: center; gap: 16px; background: #fff0f3; border-radius: 8px; padding: 16px 20px; }
+.final-bar-row .fl { font-size: 14px; font-weight: 700; color: #fa345e; white-space: nowrap; }
+.bar-bg { flex: 1; background: #ffd6df; height: 10px; border-radius: 5px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(135deg, #fa345e, #ff5a7a); border-radius: 5px; transition: width 0.4s ease; }
+.final-val { font-size: 28px; font-weight: 900; color: #fa345e; white-space: nowrap; }
+
+/* Decisión */
+.decision-options { display: flex; gap: 10px; flex-wrap: wrap; }
+.decision-btn { flex: 1; min-width: 150px; padding: 13px 16px; border: 2px solid #e0e0e0; border-radius: 8px; background: #f9f9f9; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s; text-align: center; color: #666; font-family: 'Montserrat', sans-serif; }
+.decision-btn:hover { border-color: #fa345e; background: #fff0f3; color: #fa345e; }
+.decision-btn.active-green { background: #d4edda; border-color: #28a745; color: #155724; }
+.decision-btn.active-amber { background: #fff3cd; border-color: #ffc107; color: #856404; }
+.decision-btn.active-red { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+
+/* Diagnóstico */
+.aut-btns { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.aut-btn { padding: 8px 20px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; background: #f9f9f9; color: #666; transition: all 0.15s; font-family: 'Montserrat', sans-serif; }
+.aut-btn:hover { border-color: #fa345e; color: #fa345e; background: #fff0f3; }
+.aut-btn.active { background: #fa345e; border-color: #fa345e; color: white; }
+
+/* Submit */
+.submit-container { text-align: center; padding: 30px; background: #f9f9f9; margin-top: 30px; border-radius: 8px; }
+.submit-btn { background: linear-gradient(135deg, #fa345e 0%, #ff5a7a 100%); color: white; border: none; padding: 16px 50px; font-size: 18px; font-weight: 600; border-radius: 30px; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(250,52,94,0.3); }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(250,52,94,0.4); }
+.export-btn { background: white; color: #fa345e; border: 2px solid #fa345e; padding: 14px 32px; font-size: 16px; font-weight: 600; border-radius: 30px; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: all 0.3s ease; margin-right: 12px; }
+.export-btn:hover { background: #fff0f3; }
+.success-message { display: none; background: #d4edda; border: 2px solid #28a745; color: #155724; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center; font-weight: 500; }
+.error-message { display: none; background: #f8d7da; border: 2px solid #dc3545; color: #721c24; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center; font-weight: 500; }
+.toast { position: fixed; bottom: 24px; right: 24px; background: #333; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; font-family: 'Montserrat', sans-serif; }
+.toast.show { opacity: 1; }
+@media (max-width: 600px) {
+  .results-grid { grid-template-columns: repeat(3, 1fr); }
+  .header h1 { font-size: 24px; }
+  .section-title { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <svg viewBox="0 0 420 100" xmlns="http://www.w3.org/2000/svg" style="max-width:260px;margin-bottom:20px;display:block;margin-left:auto;margin-right:auto;">
+      <text x="210" y="73" text-anchor="middle" font-family="'Montserrat', Arial, sans-serif" font-weight="700" font-size="52" fill="white" letter-spacing="-1">apprecio</text>
+    </svg>
+    <h1>Pauta de Evaluación – Role Playing</h1>
+    <p>Sales Lead España · Candidata: María Eugenia Pelaye</p>
+  </div>
+
+  <div class="intro-text">
+    <p><strong>Esta pauta tiene por objetivo estructurar y estandarizar la evaluación del role playing.</strong></p>
+    <p style="margin-top:10px;">Cada módulo cuenta con criterios específicos y un peso definido en el resultado final.</p>
+    <p style="margin-top:10px;">Por favor completa todos los puntajes y agrega comentarios donde consideres relevante.</p>
+  </div>
+
+  <form id="evalForm" class="form-content">
+
+    <!-- I. DATOS -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-number">I</span>Datos de la Evaluación</h2>
+      <div class="question">
+        <label class="question-label">Evaluador<span class="required">*</span></label>
+        <select name="evaluador" id="evaluador" required>
+          <option value="">Selecciona un evaluador…</option>
+          <option>Sebastián Rojas</option>
+          <option>Sebastián Gajardo</option>
+        </select>
+      </div>
+      <div class="question">
+        <label class="question-label">Fecha de evaluación<span class="required">*</span></label>
+        <input type="date" name="fecha" id="fecha" required>
+      </div>
+    </div>
+
+    <!-- II. ESCALA -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-number">II</span>Escala de Evaluación</h2>
+      <div class="scale-legend">
+        <div class="scale-pill"><span class="num">1</span><span>Débil – no cumple / confunde</span></div>
+        <div class="scale-pill"><span class="num">2</span><span>Insuficiente – vacíos críticos</span></div>
+        <div class="scale-pill"><span class="num">3</span><span>Aceptable – correcto, sin diferenciación</span></div>
+        <div class="scale-pill"><span class="num">4</span><span>Bueno – claro y consistente</span></div>
+        <div class="scale-pill"><span class="num">5</span><span>Sobresaliente – estratégico, genera impacto</span></div>
+      </div>
+    </div>
+
+    <!-- MÓDULOS A–E -->
+    <div id="modules-container"></div>
+
+    <!-- RESULTADO FINAL -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-number">III</span>Resultado Final</h2>
+      <div class="results-grid" id="results-grid"></div>
+      <div class="final-bar-row">
+        <span class="fl">Puntaje ponderado</span>
+        <div class="bar-bg"><div class="bar-fill" id="bar-fill" style="width:0%"></div></div>
+        <span class="final-val"><span id="final-score">–</span><span style="font-size:15px;opacity:.5">/5</span></span>
+      </div>
+    </div>
+
+    <!-- DECISIÓN -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-number">IV</span>Decisión</h2>
+      <div class="decision-options">
+        <button type="button" class="decision-btn" onclick="setDecision('avanza','active-green',this)">Avanza sin dudas</button>
+        <button type="button" class="decision-btn" onclick="setDecision('condiciones','active-amber',this)">Avanza con condiciones</button>
+        <button type="button" class="decision-btn" onclick="setDecision('no','active-red',this)">No avanza</button>
+      </div>
+    </div>
+
+    <!-- DIAGNÓSTICO -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-number">V</span>Diagnóstico Ejecutivo</h2>
+      <div class="question">
+        <label class="question-label">Mayor fortaleza<span class="required">*</span></label>
+        <textarea name="fortaleza" id="fortaleza" placeholder="Describir la principal fortaleza observada…" required></textarea>
+      </div>
+      <div class="question">
+        <label class="question-label">Mayor riesgo<span class="required">*</span></label>
+        <textarea name="riesgo" id="riesgo" placeholder="Describir el principal riesgo o área de mejora…" required></textarea>
+      </div>
+      <div class="question">
+        <label class="question-label">Nivel de autonomía<span class="required">*</span></label>
+        <div class="aut-btns">
+          <button type="button" class="aut-btn" onclick="setAutonomy('Alto',this)">Alto</button>
+          <button type="button" class="aut-btn" onclick="setAutonomy('Medio',this)">Medio</button>
+          <button type="button" class="aut-btn" onclick="setAutonomy('Bajo',this)">Bajo</button>
+        </div>
+        <input type="text" name="autonomy_comment" id="autonomy_comment" placeholder="Comentario sobre nivel de autonomía…" style="margin-top:10px;">
+      </div>
+      <div class="question">
+        <label class="question-label">Próximos pasos<span class="required">*</span></label>
+        <textarea name="pasos" id="pasos" placeholder="Indicar los próximos pasos sugeridos…" required></textarea>
+      </div>
+    </div>
+
+    <div id="successMessage" class="success-message">✓ ¡Evaluación enviada exitosamente! Los resultados han sido registrados.</div>
+    <div id="errorMessage" class="error-message">✗ Hubo un error al enviar. Por favor, intenta nuevamente.</div>
+
+    <div class="submit-container">
+      <button type="button" class="export-btn" onclick="exportarJSON()">Exportar JSON</button>
+      <button type="submit" class="submit-btn" id="submitBtn">Enviar Evaluación</button>
+    </div>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WEBHOOK_URL = 'https://n8n.openip.cl/webhook/evaluacion-roleplay';
+
+const MODULES = [
+  { id:'A', name:'Explicación de negocio', weight:20, letter:'A',
+    instruction:'"Explícame Apprecio como si yo fuera un cliente en España."',
+    criteria:['Explica valor (no features)','Claridad modelo de negocio (cómo gana dinero)','Coherencia comercial–operativa','Capacidad de simplificación'] },
+  { id:'B', name:'Pitch comercial', weight:20, letter:'B',
+    instruction:'"Haz tu pitch para un cliente objetivo en España."',
+    criteria:['Claridad y estructura','Adaptación a España','Capacidad de síntesis','Relevancia del problema'] },
+  { id:'C', name:'Manejo de objeciones', weight:20, letter:'C',
+    instruction:null,
+    criteria:['Entiende el fondo de la objeción','Calidad de respuesta','Conexión con valor real','Manejo de tensión comercial'] },
+  { id:'D', name:'Priorización comercial', weight:25, letter:'D',
+    instruction:'"Muéstrame qué priorizarías y por qué."',
+    criteria:['Claridad de foco (qué sí / qué no)','Uso estratégico de venta de puntos','Entendimiento de mercado','Lógica de escalabilidad'] },
+  { id:'E', name:'Límites del modelo', weight:15, letter:'E',
+    instruction:'"¿Qué NO venderías hoy y por qué?"',
+    criteria:['Identifica qué no vender','Reconoce riesgos reales','Capacidad de decir que no','Entiende restricciones del modelo'] }
+];
+
+const scores = {};
+const state = { decision: null, autonomy: null };
+
+function buildModules() {
+  const container = document.getElementById('modules-container');
+  const grid = document.getElementById('results-grid');
+  MODULES.forEach((mod, mi) => {
+    scores[mod.id] = {};
+    mod.criteria.forEach((_,i) => scores[mod.id][i] = null);
+
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    const sectionNum = mi + 3;
+    sec.innerHTML = `
+      <h2 class="section-title">
+        <span class="section-number" style="background:#fa345e;border-radius:6px;width:auto;padding:0 10px;font-size:14px;">Módulo ${mod.letter} · ${mod.weight}%</span>
+        &nbsp;${mod.name}
+      </h2>
+      ${mod.instruction ? `<div class="module-instruction">${mod.instruction}</div>` : ''}
+      <table class="criteria-table">
+        <thead><tr><th>Criterio</th><th class="score-col">Puntaje (1–5)</th></tr></thead>
+        <tbody>
+          ${mod.criteria.map((cr,i) => `
+            <tr>
+              <td>${cr}</td>
+              <td>
+                <div class="score-selector">
+                  ${[1,2,3,4,5].map(n => `<button type="button" class="score-btn" data-mod="${mod.id}" data-idx="${i}" onclick="setScore('${mod.id}',${i},${n},this)">${n}</button>`).join('')}
+                </div>
+              </td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="comment-box">
+        <textarea id="comment-${mod.id}" placeholder="Comentario breve sobre este módulo…"></textarea>
+      </div>
+      <div class="subtotal-row">
+        <span class="subtotal-label">Subtotal ${mod.letter}:</span>
+        <span class="subtotal-val" id="sub-${mod.id}">–</span>
+      </div>`;
+    container.appendChild(sec);
+
+    const tile = document.createElement('div');
+    tile.className = 'result-tile';
+    tile.innerHTML = `<div class="t-mod">Módulo ${mod.letter}</div><div class="t-weight">${mod.weight}%</div><div class="t-score" id="tile-${mod.id}">–</div><div class="t-denom">/5</div>`;
+    grid.appendChild(tile);
+  });
+}
+
+function setScore(modId, idx, val, btn) {
+  scores[modId][idx] = val;
+  document.querySelectorAll(`.score-btn[data-mod="${modId}"][data-idx="${idx}"]`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateSubtotal(modId);
+}
+
+function updateSubtotal(modId) {
+  const vals = Object.values(scores[modId]).filter(v => v !== null);
+  const avg = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+  const disp = avg !== null ? avg.toFixed(1) : '–';
+  document.getElementById(`sub-${modId}`).textContent = avg !== null ? disp + '/5' : '–';
+  document.getElementById(`tile-${modId}`).textContent = disp;
+  updateFinal();
+}
+
+function updateFinal() {
+  let num = 0, den = 0;
+  MODULES.forEach(m => {
+    const vals = Object.values(scores[m.id]).filter(v => v !== null);
+    if (vals.length) { const avg = vals.reduce((a,b)=>a+b,0)/vals.length; num += avg*(m.weight/100); den += m.weight/100; }
+  });
+  if (den > 0) {
+    const f = (num/den).toFixed(2);
+    document.getElementById('final-score').textContent = f;
+    document.getElementById('bar-fill').style.width = ((f/5)*100)+'%';
+  } else {
+    document.getElementById('final-score').textContent = '–';
+    document.getElementById('bar-fill').style.width = '0%';
+  }
+}
+
+function setDecision(val, cls, el) {
+  state.decision = val;
+  document.querySelectorAll('.decision-btn').forEach(b => b.className = 'decision-btn');
+  el.className = 'decision-btn ' + cls;
+}
+
+function setAutonomy(val, el) {
+  state.autonomy = val;
+  document.querySelectorAll('.aut-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function collectData() {
+  const data = {
+    evaluador: document.getElementById('evaluador').value,
+    fecha: document.getElementById('fecha').value,
+    candidata: 'María Eugenia Pelaye',
+    cargo: 'Sales Lead España',
+    decision: state.decision,
+    diagnostico: {
+      fortaleza: document.getElementById('fortaleza').value,
+      riesgo: document.getElementById('riesgo').value,
+      autonomia: { nivel: state.autonomy, comentario: document.getElementById('autonomy_comment').value },
+      proximos_pasos: document.getElementById('pasos').value
+    },
+    modulos: {},
+    puntaje_final: document.getElementById('final-score').textContent,
+    timestamp: new Date().toISOString()
+  };
+  MODULES.forEach(m => {
+    const vals = Object.values(scores[m.id]).filter(v => v !== null);
+    const avg = vals.length ? parseFloat((vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2)) : null;
+    data.modulos[m.id] = { nombre: m.name, peso: m.weight, puntajes: scores[m.id], promedio: avg, comentario: document.getElementById('comment-'+m.id).value };
+  });
+  return data;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function exportarJSON() {
+  const data = collectData();
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `evaluacion_${(data.evaluador||'sin_evaluador').replace(/ /g,'_')}_${data.fecha||'sin_fecha'}.json`;
+  a.click();
+  showToast('JSON exportado correctamente');
+}
+
+document.getElementById('evalForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const ok = document.getElementById('successMessage');
+  const err = document.getElementById('errorMessage');
+  ok.style.display = 'none'; err.style.display = 'none';
+
+  if (!document.getElementById('evaluador').value) { showToast('Selecciona un evaluador'); return; }
+  if (!document.getElementById('fecha').value) { showToast('Selecciona la fecha'); return; }
+  if (!state.decision) { showToast('Selecciona una decisión'); return; }
+
+  btn.disabled = true; btn.textContent = 'Enviando…';
+  const data = collectData();
+
+  try {
+    const res = await fetch(WEBHOOK_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+    if (res.ok) {
+      ok.style.display = 'block';
+      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else throw new Error('Error servidor');
+  } catch(error) {
+    err.style.display = 'block';
+    err.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } finally {
+    btn.disabled = false; btn.textContent = 'Enviar Evaluación';
+  }
+});
+
+document.getElementById('fecha').valueAsDate = new Date();
+buildModules();
+</script>
+</body>
+</html>

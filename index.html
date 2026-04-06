@@ -205,7 +205,6 @@ input[type="radio"] { width: 20px; height: 20px; margin-right: 10px; cursor: poi
     <div id="errorMessage" class="error-message">✗ Hubo un error al enviar. Por favor, intenta nuevamente.</div>
 
     <div class="submit-container">
-      <button type="button" class="export-btn" onclick="exportarJSON()">Exportar JSON</button>
       <button type="submit" class="submit-btn" id="submitBtn">Enviar Evaluación</button>
     </div>
   </form>
@@ -214,7 +213,7 @@ input[type="radio"] { width: 20px; height: 20px; margin-right: 10px; cursor: poi
 <div class="toast" id="toast"></div>
 
 <script>
-const WEBHOOK_URL = 'https://n8n.openip.cl/webhook/evaluacion-roleplay';
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzzzE55o9HdsrPWHjVt4ZZEygF9W33HkeYN6jYdxu_Q-sT0tVQAa6dIHd9Sd4lqhQbL/exec';
 
 const MODULES = [
   { id:'A', name:'Explicación de negocio', weight:20, letter:'A',
